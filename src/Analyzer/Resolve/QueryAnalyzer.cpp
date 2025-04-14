@@ -1807,6 +1807,7 @@ void QueryAnalyzer::updateMatchedColumnsFromJoinUsing(
                     node_to_projection_name.emplace(matched_column_node, it->second);
 
                 matched_column_node->as<ColumnNode &>().setColumnType(join_using_column_node.getResultType());
+                correctColumnExpressionType(matched_column_node->as<ColumnNode &>(), scope.context);
                 if (!matched_column_node->isEqual(*join_using_column_nodes.at(0)))
                     scope.join_columns_with_changed_types[matched_column_node] = join_using_column_nodes.at(0);
             }
@@ -2122,6 +2123,7 @@ QueryAnalyzer::QueryTreeNodesWithNames QueryAnalyzer::resolveUnqualifiedMatcher(
 
                     matched_column_node = matched_column_node->clone();
                     matched_column_node->as<ColumnNode &>().setColumnType(join_using_column_node.getResultType());
+                    correctColumnExpressionType(matched_column_node->as<ColumnNode &>(), scope.context);
                     if (!matched_column_node->isEqual(*join_using_column_nodes.at(0)))
                         scope.join_columns_with_changed_types[matched_column_node] = join_using_column_nodes.at(0);
 
