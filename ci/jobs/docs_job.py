@@ -1,7 +1,7 @@
 import os
 
 from ci.praktika.result import Result
-from ci.praktika.utils import Shell, Utils
+from ci.praktika.utils import Utils
 
 if __name__ == "__main__":
 
@@ -41,6 +41,7 @@ if __name__ == "__main__":
             name=testname,
             command=[f"yarn run-markdown-linter"],
             workdir="/opt/clickhouse-docs",
+            with_info=True,
         )
     )
 
